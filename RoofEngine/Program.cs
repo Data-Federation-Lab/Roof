@@ -20,7 +20,10 @@ namespace RoofEngine
             #endif
 
             Bash.Run("sudo systemctl disable cron");
+
+            #if RELEASE
             Bash.Run("sudo systemctl disable thd");
+            #endif
         }
     }
 }
