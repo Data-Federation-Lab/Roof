@@ -46,8 +46,8 @@ chmod +x ./dotnet-install.sh
 
 Set the .NET environment variables:
 ```bash
-export DOTNET_ROOT=$HOME/.dotnet
-export PATH=$PATH:$DOTNET_ROOT:$DOTNET_ROOT/tools
+echo -e "\nexport DOTNET_ROOT=\$HOME/.dotnet\nexport PATH=\$PATH:\$DOTNET_ROOT:\$DOTNET_ROOT/tools" >> ~/.bashrc
+source ~/.bashrc
 ```
 
 ### 5. Install Additional Tools
