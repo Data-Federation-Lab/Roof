@@ -8,4 +8,6 @@
     <PublishAot>true</PublishAot>
   </PropertyGroup>
 
+  <!--Compiler Optimisation flags needs to be provided to the ILC-->
+
 </Project>
