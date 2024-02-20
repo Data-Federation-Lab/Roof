@@ -13,16 +13,34 @@ namespace RoofEngine
             DisableUnnecessaryServices();
         }
 
+        private static void DisableService(string serviceName)
+        {
+            string disableServiceResult = Bash.Run($"sudo systemctl disable {serviceName}");
+            string isServiceActive = Bash.Run($"sudo systemctl is-active {serviceName}");
+            string isServiceEnabled = Bash.Run($"sudo systemctl is-enabled {serviceName}");
+
+            #if DEBUG
+            Console.WriteLine($"disableServiceResult: {disableServiceResult}");
+            Console.WriteLine($"isServiceActive: {isServiceActive}");
+            Console.WriteLine($"isServiceEnabled: {isServiceEnabled}");
+            #endif
+
+            if(isServiceActive.Contains("inactive") && isServiceEnabled.Contains("disabled"))
+                Logger.Log($"Successfully disabled {serviceName}");
+            else
+                Logger.Log($"Failed to disable {serviceName}: {disableServiceResult}");
+        }
+
         private static void DisableUnnecessaryServices()
         {
             #if DEBUG
-            Bash.Run("sudo systemctl disable ModemManager");
+            DisableService("ModemManager");
             #endif
 
-            Bash.Run("sudo systemctl disable cron");
+            DisableService("cron");
 
             #if RELEASE
-            Bash.Run("sudo systemctl disable thd");
+            DisableService("thd");
             #endif
         }
     }
