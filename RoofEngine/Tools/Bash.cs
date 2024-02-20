@@ -31,7 +31,7 @@ namespace RoofEngine.Tools
             return process;
         }
 
-        public static void Run(string command)
+        public static string Run(string command)
         {
             try
             {
@@ -41,26 +41,19 @@ namespace RoofEngine.Tools
 
                     // Read the output to ensure the command was executed
                     string result = process.StandardOutput.ReadToEnd();
-                    string error = process.StandardError.ReadToEnd();
                     process.WaitForExit(); // Wait for the process to exit
 
-                    if (!string.IsNullOrEmpty(error))
-                    {
-                        Console.WriteLine($"Error running command: {error}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Command '{command}' executed successfully.");
-                    }
+                    return result;
                 }
             }
             catch(Exception ex)
             {
                 Console.WriteLine($"Error running command: {ex.Message}");
+                return string.Empty;
             }
         }
 
-        public static void Run(Process preparedCommand)
+        public static string Run(Process preparedCommand)
         {
             try
             {
@@ -70,22 +63,15 @@ namespace RoofEngine.Tools
 
                     // Read the output to ensure the command was executed
                     string result = process.StandardOutput.ReadToEnd();
-                    string error = process.StandardError.ReadToEnd();
                     process.WaitForExit(); // Wait for the process to exit
 
-                    if (!string.IsNullOrEmpty(error))
-                    {
-                        Console.WriteLine($"Error running command: {error}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"Command '{preparedCommand.StartInfo.Arguments}' executed successfully.");
-                    }
+                    return result;
                 }
             }
             catch(Exception ex)
             {
                 Console.WriteLine($"Error running command: {ex.Message}");
+                return string.Empty;
             }
         }
     }
