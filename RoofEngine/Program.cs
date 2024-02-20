@@ -19,6 +19,10 @@ namespace RoofEngine
             string isServiceActive = Bash.Run($"sudo systemctl is-active {serviceName}");
             string isServiceEnabled = Bash.Run($"sudo systemctl is-enabled {serviceName}");
 
+            Console.WriteLine($"disableServiceResult: {disableServiceResult}");
+            Console.WriteLine($"isServiceActive: {isServiceActive}");
+            Console.WriteLine($"isServiceEnabled: {isServiceEnabled}");
+
             if(isServiceActive == "inactive" && isServiceEnabled == "disabled")
                 Logger.Log($"Successfully disabled {serviceName}");
             else
