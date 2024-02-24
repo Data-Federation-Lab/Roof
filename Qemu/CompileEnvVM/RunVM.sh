@@ -115,8 +115,8 @@ else
         -smp 4 \
         -m 2048 \
         -drive file=$virtual_hard_disk_file,if=virtio \
-        -net nic \
-        -net user \
+        -netdev user,id=net0,hostfwd=tcp::5023-:22 \
+        -device virtio-net,netdev=net0 \
         -boot d \
         -bios QEMU_EFI.fd \
         -nographic
